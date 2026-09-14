@@ -1,18 +1,16 @@
 {
-  "benchmark": "fields-of-mistria-live-001",
+  "benchmark": "everdawn-fictional-live-001",
   "version": "0.3",
-  "status": "functional benchmark; not blind statistical validation",
-  "source": "User-provided Fields of Mistria livestream transcript/video",
+  "status": "fictional functional benchmark; not statistical validation",
+  "source": "Fictional Everdawn livestream transcript created for Clip Intelligence testing",
   "opportunities": [
-    {"rank":1,"type":"Comedy","label":"Sapos","content_potential":94,"visual_edit_potential":93,"final_score":93,"confidence":"high","priority":"PRIORITY","window":"00:20:15-00:20:29"},
-    {"rank":2,"type":"Personality","label":"Frederick/meia-calça","content_potential":92,"visual_edit_potential":91,"final_score":92,"confidence":"high","priority":"PRIORITY","window":"00:45:50-00:45:58"},
-    {"rank":3,"type":"Personality","label":"Dinheiro/felicidade","content_potential":84,"visual_edit_potential":90,"final_score":88,"confidence":"high","priority":"PRIORITY","window":"00:46:08-00:46:20"},
-    {"rank":4,"type":"Community","label":"Crianças/Bayor","content_potential":89,"visual_edit_potential":84,"final_score":86,"confidence":"medium","priority":"STRONG","window":"00:54:03-00:54:25"},
-    {"rank":5,"type":"Discovery","label":"Fields vs Stardew","content_potential":83,"visual_edit_potential":78,"final_score":81,"confidence":"high","priority":"STRONG","window":"00:34:58-00:35:19"},
-    {"rank":6,"type":"Story","label":"RPG","content_potential":90,"visual_edit_potential":76,"final_score":83,"confidence":"medium-high","priority":"TEST"},
-    {"rank":7,"type":"Personality","label":"Eu sou a melhor","content_potential":79,"visual_edit_potential":75,"final_score":77,"confidence":"high","priority":"SECONDARY"},
-    {"rank":8,"type":"Personality","label":"Odeio acordar cedo","content_potential":77,"visual_edit_potential":74,"final_score":75,"confidence":"high","priority":"SECONDARY"},
-    {"rank":9,"type":"Discovery","label":"Mobile","content_potential":80,"visual_edit_potential":68,"final_score":74,"confidence":"medium","priority":"TEST","notes":"time-sensitive claim"},
-    {"rank":10,"type":"Community","label":"Coros/CLT","content_potential":85,"visual_edit_potential":63,"final_score":72,"confidence":"medium","priority":"TEST"}
+    {"rank":1,"type":"Gameplay Progression","label":"Castle movement","content_potential":95,"visual_edit_potential":94,"final_score":95,"confidence":"high","window":"00:31:44-00:32:09"},
+    {"rank":2,"type":"Personality","label":"Fashion is part of the strategy","content_potential":93,"visual_edit_potential":88,"final_score":92,"confidence":"high","window":"01:02:11-01:02:28"},
+    {"rank":3,"type":"Discovery","label":"Cave mushrooms grow faster","content_potential":92,"visual_edit_potential":91,"final_score":92,"confidence":"high","window":"01:41:16-01:41:34"},
+    {"rank":4,"type":"Story","label":"Fisherman and the royal fleet","content_potential":91,"visual_edit_potential":79,"final_score":87,"confidence":"high","window":"01:18:04-01:18:37"},
+    {"rank":5,"type":"Curiosity","label":"The statue turns its head","content_potential":89,"visual_edit_potential":86,"final_score":87,"confidence":"high","window":"00:47:08-00:47:29"},
+    {"rank":6,"type":"Community","label":"Dragon egg vote","content_potential":88,"visual_edit_potential":84,"final_score":86,"confidence":"high","window":"01:29:42-01:30:10"},
+    {"rank":7,"type":"Comedy","label":"Legendary spoon","content_potential":90,"visual_edit_potential":82,"final_score":87,"confidence":"high","window":"00:12:14-00:12:40"},
+    {"rank":8,"type":"NO-CLIP","label":"Inventory organization","content_potential":28,"visual_edit_potential":31,"final_score":29,"confidence":"high","priority":"NO-CLIP","window":"01:52:03-01:52:32"}
   ]
 }
