@@ -1,0 +1,16 @@
+{
+  "benchmark": "everdawn-fictional-live-001",
+  "version": "0.3",
+  "status": "fictional functional benchmark; not statistical validation",
+  "source": "Fictional Everdawn livestream transcript created for Clip Intelligence testing",
+  "opportunities": [
+    {"rank":1,"type":"Gameplay Progression","label":"Castle movement","content_potential":95,"visual_edit_potential":94,"final_score":95,"confidence":"high","window":"00:31:44-00:32:09"},
+    {"rank":2,"type":"Personality","label":"Fashion is part of the strategy","content_potential":93,"visual_edit_potential":88,"final_score":92,"confidence":"high","window":"01:02:11-01:02:28"},
+    {"rank":3,"type":"Discovery","label":"Cave mushrooms grow faster","content_potential":92,"visual_edit_potential":91,"final_score":92,"confidence":"high","window":"01:41:16-01:41:34"},
+    {"rank":4,"type":"Story","label":"Fisherman and the royal fleet","content_potential":91,"visual_edit_potential":79,"final_score":87,"confidence":"high","window":"01:18:04-01:18:37"},
+    {"rank":5,"type":"Curiosity","label":"The statue turns its head","content_potential":89,"visual_edit_potential":86,"final_score":87,"confidence":"high","window":"00:47:08-00:47:29"},
+    {"rank":6,"type":"Community","label":"Dragon egg vote","content_potential":88,"visual_edit_potential":84,"final_score":86,"confidence":"high","window":"01:29:42-01:30:10"},
+    {"rank":7,"type":"Comedy","label":"Legendary spoon","content_potential":90,"visual_edit_potential":82,"final_score":87,"confidence":"high","window":"00:12:14-00:12:40"},
+    {"rank":8,"type":"NO-CLIP","label":"Inventory organization","content_potential":28,"visual_edit_potential":31,"final_score":29,"confidence":"high","priority":"NO-CLIP","window":"01:52:03-01:52:32"}
+  ]
+}
