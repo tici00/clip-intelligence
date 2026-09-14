@@ -1,10 +1,14 @@
 # Benchmark Report — v0.3
 
-This benchmark carries forward the functional Fields of Mistria live benchmark used during development. It is a qualitative regression fixture, not a statistically validated performance claim.
+This benchmark uses a fictional Everdawn livestream fixture created for Clip Intelligence testing. It is a qualitative regression fixture, not a statistically validated performance claim.
 
 ## Purpose
 
-Verify that the Skill can preserve strong comedy detection while broadening discovery toward personality, progression, curiosity, story, community, and discovery opportunities.
+Verify that the Skill can identify distinct opportunity types instead of over-prioritizing obvious humor.
+
+## Fixture coverage
+
+The fictional source includes examples of Comedy, Personality, Gameplay Progression, Curiosity, Story, Community, Discovery, and an explicit NO-CLIP moment.
 
 ## v0.3 evaluation criteria
 
@@ -17,10 +21,6 @@ Verify that the Skill can preserve strong comedy detection while broadening disc
 - Can the system explicitly return NO-CLIP?
 - Is confidence separated from score?
 
-## Known development lesson
-
-The earlier blind benchmark showed strong detection of obvious humor but missed several non-comedy opportunities, including gameplay progression, curiosity, personality, discovery, and community moments. v0.3 therefore changes the product objective from generic highlight ranking to opportunity intelligence.
-
 ## Guardrail
 
-Do not use this fixture to claim a percentage improvement in real-world virality, recall, or precision. It is intended for functional regression testing against known examples.
+Do not use this fixture to claim real-world virality, recall, precision, or engagement performance. It is intended for functional regression testing against known fictional examples.
