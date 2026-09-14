@@ -5,7 +5,7 @@ Clip Intelligence v0.3 uses structured scores rather than a single generic highl
 ## Components
 
 ### Content Potential
-Measures whether the moment has a compelling idea, emotion, payoff, tension, specificity, or useful information.
+Measures whether the moment has a compelling idea, emotion, payoff, tension, specificity, progression, discovery, or useful information.
 
 ### Visual/Edit Potential
 Measures observable visual action, reactions, screen changes, game events, framing opportunities, and ease of editing. Do not infer visuals from transcript alone.
@@ -14,7 +14,7 @@ Measures observable visual action, reactions, screen changes, game events, frami
 Measures fit with the requested audience, platform, niche, and content goal.
 
 ### Opportunity-Type Fit
-Measures how strongly the candidate matches its selected opportunity type.
+Measures how strongly the candidate matches its selected opportunity type. This prevents generic humor from automatically outranking strong non-comedy opportunities.
 
 ### Editability
 Measures whether the moment can be turned into a coherent short clip without excessive setup or missing context.
@@ -26,6 +26,24 @@ When video evidence exists:
 `Final = 0.40 Content + 0.25 Visual/Edit + 0.15 Audience/Goal + 0.15 Type Fit + 0.05 Editability`
 
 All components use a 0–100 scale.
+
+The formula is intentionally stable in v0.3. The main improvement is **better candidate discovery and type-aware evaluation**, not arbitrary weight changes.
+
+## Type-specific scoring emphasis
+
+The components remain the same, but their interpretation changes by opportunity type:
+
+| Type | Strongest signals |
+|---|---|
+| Comedy | punchline, reaction, payoff, editability, personality |
+| Personality | specificity, creator perspective, relevance, comment potential |
+| Gameplay Progression | meaningful progress, hook, visual evidence, discovery, consequence |
+| Curiosity | hook, unanswered question, specificity, emotion, comments |
+| Story | narrative completeness, escalation, emotion, stakes, context independence |
+| Community | participation, debate, competition, personality, comment potential |
+| Discovery | discovery value, hook, specificity, visual support, usefulness |
+
+A candidate should not receive a high score merely because it is funny if another type better describes its value.
 
 ## Confidence
 
@@ -41,6 +59,34 @@ Confidence is separate from the score. High confidence requires strong source ev
 
 These labels are prioritization guidance, not predictions of virality.
 
+## Candidate discovery vs. ranking
+
+Do not use the final score as the only mechanism for discovering candidates. First build a broad candidate pool from opportunity signals, then score and rank it.
+
+The candidate pool should include plausible moments for all seven opportunity types when the source provides evidence for them. This is especially important for progression, curiosity, personality, community, and discovery moments that may lack an immediate punchline.
+
+## Ranking safeguards
+
+After scoring:
+
+1. Apply evidence and context gates.
+2. Cluster duplicates and overlapping versions.
+3. Run the type concentration check.
+4. If multiple candidates are close in score, prefer the candidate that adds distinct opportunity/topic coverage when quality remains strong.
+5. Never force a weak candidate into the ranking solely to satisfy diversity.
+
 ## Boundary optimization
 
-Start at the minimum setup needed to understand the moment. End after the punchline, reveal, result, or meaningful progression. For curiosity, ending at the open loop is acceptable when the unanswered question is the hook.
+Start at the minimum setup needed to understand the moment. End after the punchline, reveal, result, or meaningful progression. For curiosity, ending at the open loop is acceptable when the unanswered question is the hook. For progression, preserve the meaningful unlock/reward/consequence when it is required to understand why the moment matters.
+
+## Benchmarking
+
+When a human-gold set is available, report at minimum:
+
+- Gold Match Rate: proportion of gold opportunities represented by at least one output candidate, using an explicitly stated matching rule.
+- Top-K Gold Coverage: gold opportunities represented within the first K ranked outputs.
+- Opportunity-Type Coverage: which gold types were recovered or missed.
+- Ranking Quality: whether recovered gold opportunities appear near the top.
+- NO-CLIP behavior: whether explicit negatives are avoided or correctly marked.
+
+Do not describe these as model performance guarantees. They are benchmark measurements for the supplied evaluation set.
