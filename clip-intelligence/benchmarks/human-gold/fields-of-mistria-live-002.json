@@ -1,0 +1,34 @@
+{
+  "benchmark": "fields-of-mistria-live-002-human-gold",
+  "version": "0.3",
+  "status": "human-curated gold opportunity set; not exhaustive and not statistical validation",
+  "source": "User-provided Fields of Mistria livestream transcript and human-selected cuts from the second live",
+  "matching_note": "Windows are approximate benchmark boundaries derived from the transcript and selected-cut descriptions. Numeric scores are benchmark labels estimated during review, not ratings supplied by the user.",
+  "opportunities": [
+    {"id":"gold-01","rank":1,"type":"Comedy","secondary_type":"Story","label":"Check-up / amputation","window":"00:40:00-00:40:45","estimated_score":95,"confidence":"high","payoff":"Medical absurdity escalates into the amputation line.","notes":"Strong comedy with a compact narrative escalation."},
+    {"id":"gold-02","rank":2,"type":"Comedy","secondary_type":"Discovery","label":"Pergaminho / rim","window":"01:53:18-01:54:26","estimated_score":95,"confidence":"high","payoff":"The expensive material request lands on the kidney joke."},
+    {"id":"gold-03","rank":3,"type":"Comedy","secondary_type":"Discovery","label":"Pedra / pergaminho ilegal","window":"01:23:43-01:24:46","estimated_score":90,"confidence":"high","payoff":"The quest's questionable legality becomes the joke."},
+    {"id":"gold-04","rank":4,"type":"Story","secondary_type":"Comedy","label":"Queen Maple / sucessão","window":"01:17:12-01:18:36","estimated_score":91,"confidence":"high","payoff":"Succession rules escalate to the possibility of death."},
+    {"id":"gold-05","rank":5,"type":"Gameplay Progression","secondary_type":"Story","label":"Selo de fogo","window":"01:15:58-01:16:31","estimated_score":89,"confidence":"high","payoff":"The fire seal is broken and the tablet-related progression unfolds."},
+    {"id":"gold-06","rank":6,"type":"Personality","secondary_type":"Discovery","label":"Não tá na minha paleta","window":"01:33:43-01:35:17","estimated_score":84,"confidence":"high","payoff":"The creator evaluates fall clothing through a personal aesthetic preference."},
+    {"id":"gold-07","rank":7,"type":"Community","secondary_type":"Personality","label":"Competição das frutas","window":"01:46:18-01:46:30","estimated_score":88,"confidence":"high","payoff":"The creator realizes the fruit event is a competition and wants first place."},
+    {"id":"gold-08","rank":8,"type":"Curiosity","secondary_type":"Personality","label":"Jogo de tabuleiro","window":"01:19:03-01:19:44","estimated_score":84,"confidence":"high","payoff":"Board-game interaction leads to a question about the last time the creator made a joke."},
+    {"id":"gold-09","rank":9,"type":"Personality","secondary_type":"Discovery","label":"Artefato de prata / museu","window":"00:26:51-00:27:13","estimated_score":82,"confidence":"high","payoff":"The creator rejects the expected reward because she plans to donate the artifact to the museum."},
+    {"id":"gold-10","rank":10,"type":"Curiosity","secondary_type":"Story","label":"Portal / memórias","window":"00:05:29-00:06:05","estimated_score":86,"confidence":"high","payoff":"A portal and returning memories create an unresolved story question."},
+    {"id":"gold-11","rank":11,"type":"Gameplay Progression","secondary_type":"Discovery","label":"Crescimento / novo poder","window":"00:05:09-00:05:20","estimated_score":90,"confidence":"high","payoff":"A new growth-related power or ability is granted."},
+    {"id":"gold-12","rank":12,"type":"Comedy","secondary_type":"Personality","label":"Galo / fragilidades mortais","window":"00:53:42-00:54:48","estimated_score":82,"confidence":"high","payoff":"The rooster interaction becomes an exaggerated joke about mortal fragility."}
+  ],
+  "known_failure_modes_from_prior_blind_test": [
+    "Over-ranking immediate humor and punchlines.",
+    "Under-detecting gameplay progression and meaningful unlocks.",
+    "Under-detecting curiosity and open-loop moments.",
+    "Under-detecting personality-driven moments without a conventional joke.",
+    "Under-detecting community opportunities such as competitions.",
+    "Missing discovery and story opportunities that depend on more than a single punchline."
+  ],
+  "evaluation_targets": {
+    "primary": "Recover distinct gold opportunities across all supported opportunity types.",
+    "secondary": "Keep recovered opportunities near the top without flooding the ranking with comedy-only candidates.",
+    "guardrail": "Do not treat this curated set as exhaustive ground truth or as evidence of real-world virality."
+  }
+}
