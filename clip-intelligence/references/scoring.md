@@ -29,6 +29,32 @@ All components use a 0–100 scale.
 
 The formula is intentionally stable in v0.3. The main improvement is **better candidate discovery and type-aware evaluation**, not arbitrary weight changes.
 
+## Candidate quality gate
+
+Before calculating the final score, test whether the candidate has at least two strong signal groups, including at least one of Hook, Value, or Change:
+
+- Hook: question, contradiction, strong opinion, surprise, reaction, or tension.
+- Value: useful discovery, explanation, comparison, tip, or information.
+- Change: unlock, milestone, reveal, consequence, or meaningful outcome.
+- Emotion/Personality: strong reaction, recognizable preference, unusual behavior, or creator-specific perspective.
+- Participation: debate, choice, competition, vote, or invitation to comment.
+
+A candidate with only a single weak signal should not become a strong clip simply because one score dimension was generous. Mark it NO-CLIP or low priority.
+
+## Anti-false-positive adjustment
+
+After component scoring, perform a separate **clipability check**:
+
+- Is there a clear hook within the first practical seconds?
+- Does the viewer gain information, emotion, progression, curiosity, story, or participation value?
+- Can the moment stand alone with limited context?
+- Is there a meaningful payoff or intentional open loop?
+- Is the candidate more than routine gameplay, filler, or an isolated sentence?
+
+If the answer is mostly no, downgrade the candidate or mark NO-CLIP even when raw component scores are moderate.
+
+This check is intentionally separate from confidence: confidence measures evidence quality; clipability measures whether the moment is actually worth clipping.
+
 ## Type-specific scoring emphasis
 
 The components remain the same, but their interpretation changes by opportunity type:
@@ -70,10 +96,11 @@ The candidate pool should include plausible moments for all seven opportunity ty
 After scoring:
 
 1. Apply evidence and context gates.
-2. Cluster duplicates and overlapping versions.
-3. Run the type concentration check.
-4. If multiple candidates are close in score, prefer the candidate that adds distinct opportunity/topic coverage when quality remains strong.
-5. Never force a weak candidate into the ranking solely to satisfy diversity.
+2. Apply the candidate quality gate and clipability check.
+3. Cluster duplicates and overlapping versions.
+4. Run the type concentration check.
+5. If multiple candidates are close in score, prefer the candidate that adds distinct opportunity/topic coverage when quality remains strong.
+6. Never force a weak candidate into the ranking solely to satisfy diversity.
 
 ## Boundary optimization
 
@@ -88,5 +115,8 @@ When a human-gold set is available, report at minimum:
 - Opportunity-Type Coverage: which gold types were recovered or missed.
 - Ranking Quality: whether recovered gold opportunities appear near the top.
 - NO-CLIP behavior: whether explicit negatives are avoided or correctly marked.
+- Non-gold Quality: whether additional candidates are genuinely clip-worthy rather than merely unusual.
+
+Keep gold recovery and non-gold quality separate. Do not optimize against the gold set during the same evaluation run.
 
 Do not describe these as model performance guarantees. They are benchmark measurements for the supplied evaluation set.
