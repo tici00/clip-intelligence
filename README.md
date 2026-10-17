@@ -4,7 +4,9 @@ AI-powered content intelligence for long-form creators.
 
 ## Current Skill
 
-The Skill lives in [clip-intelligence/SKILL.md](clip-intelligence/SKILL.md). The v1.1 proposal focuses on Creator-Ready Clip Packages, Creator Goal Modes, transparent scoring, standalone clarity, evidence provenance, and staged quality/cost controls.
+The Skill lives in [clip-intelligence/SKILL.md](clip-intelligence/SKILL.md). The v1.1 proposal focuses on Creator-Ready Clip Packages, Creator Goal Modes, transparent scoring, standalone clarity, evidence provenance, staged quality/cost controls, and broad opportunity inventory.
+
+The default output contains up to five fully packaged primary recommendations, plus a compact inventory of all other distinct, credible opportunities found in the portions of the source actually analyzed. The five-item limit does not cap discovery or alternatives. The Skill reports coverage gaps and candidate counts rather than implying exhaustive coverage when source segments were skipped.
 
 ## Reference documents
 

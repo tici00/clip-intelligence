@@ -49,17 +49,18 @@ Goal mode changes prioritization, not the evidence or the meaning of a score. Ne
 
 1. Confirm source and scope. Identify what source evidence is available, its duration/time range if known, language, and any user-provided goal or platform. Ask one concise question only if a missing choice materially changes the result.
 2. Normalize evidence. Preserve source timestamps and distinguish transcript timestamps, source-video timestamps, and any derived offsets. Never silently reset timestamps when processing chunks.
-3. Build a broad candidate pool. Discover before ranking. Search for all opportunity types supported by the source, not only obvious jokes.
-4. Classify candidates. Assign one primary type and an optional meaningful secondary type.
-5. Apply the quality gate. Reject or mark NO-CLIP candidates that lack a usable hook, meaningful information/emotion/progression, or sufficient evidence.
-6. Score content and evidence separately. Evaluate Content Potential and Visual/Edit Potential independently. Never infer visuals from a transcript alone.
-7. Apply the requested Creator Goal Mode. Adjust relevance and ordering without changing source facts or inflating scores.
-8. Check standalone clarity and context dependency. Determine whether an unfamiliar viewer can understand the clip, what minimum setup is required, and whether an on-screen caption or brief lead-in would resolve the gap.
-9. Optimize boundaries. Remove unnecessary setup but preserve enough context; include the payoff, reveal, result, or consequence. Curiosity clips may end on a meaningful open loop.
-10. Cluster duplicates. Keep one strongest version unless candidates have materially different hooks, payoffs, or clip functions.
-11. Run evidence, quality, and diversity checks. Use references/cost-controls.md to stage expensive analysis only when supported by runtime tools.
-12. Return ranked recommendations plus alternatives. Do not fill the primary list with weak candidates to reach a quota. Include the number of strong candidates actually found.
-13. Create a Creator-Ready Clip Package for each primary recommendation, following the Output Contract.
+3. Build a broad candidate pool. Discover before ranking. Search the full covered source for all plausible, source-supported opportunities across every opportunity type supported by the evidence, not only obvious jokes or the highest-scoring moments. Do not stop discovery after finding five candidates.
+4. Record the inventory. Track candidates detected, merged as duplicates, retained as distinct opportunities, placed in primary recommendations, listed as alternatives/low priority, and rejected or marked NO-CLIP. Keep counts reconcilable and do not count duplicate versions as distinct final opportunities.
+5. Classify candidates. Assign one primary type and an optional meaningful secondary type.
+6. Apply the quality gate. Reject or mark NO-CLIP candidates that lack a usable hook, meaningful information/emotion/progression, or sufficient evidence. Do not silently discard plausible but weaker opportunities merely because they will not make the primary list.
+7. Score content and evidence separately. Evaluate Content Potential and Visual/Edit Potential independently. Never infer visuals from a transcript alone.
+8. Apply the requested Creator Goal Mode. Adjust relevance and ordering without changing source facts or inflating scores.
+9. Check standalone clarity and context dependency. Determine whether an unfamiliar viewer can understand the clip, what minimum setup is required, and whether an on-screen caption or brief lead-in would resolve the gap.
+10. Optimize boundaries. Remove unnecessary setup but preserve enough context; include the payoff, reveal, result, or consequence. Curiosity clips may end on a meaningful open loop.
+11. Cluster duplicates. Keep one strongest version unless candidates have materially different hooks, payoffs, or clip functions. Preserve rejected/merged counts for the coverage summary.
+12. Run evidence, quality, and diversity checks. Use references/cost-controls.md to stage expensive analysis only when supported by runtime tools.
+13. Return up to five primary recommendations with full packages, plus a compact inventory of all other distinct, credible opportunities found in the covered source. Lower scores affect priority and detail, not whether an opportunity is disclosed. Include low-priority candidates when they remain plausibly usable; mark genuinely weak or unsupported moments separately as NO-CLIP/rejected.
+14. Create a Creator-Ready Clip Package for each primary recommendation, following the Output Contract. Do not generate full packages for every alternative unless requested.
 
 ## Candidate quality gate
 
@@ -71,7 +72,7 @@ A candidate should normally satisfy at least two of these signal groups, with at
 - Emotion/Personality: strong reaction, recognizable preference, unusual behavior, or creator-specific perspective.
 - Participation: debate, choice, competition, vote, or explicit invitation for viewers to weigh in.
 
-Do not promote a candidate merely because it contains an unusual sentence, game mechanic, or reaction. Routine actions, generic commentary, low-information explanations, and ordinary transitions should default to NO-CLIP unless another strong signal makes them meaningfully useful.
+Do not promote a candidate merely because it contains an unusual sentence, game mechanic, or reaction. Routine actions, generic commentary, low-information explanations, and ordinary transitions should default to NO-CLIP unless another strong signal makes them meaningfully useful. The quality gate is not a reason to hide a distinct, plausibly usable lower-priority candidate: label uncertainty or weakness explicitly instead.
 
 ## Opportunity discovery rules
 
@@ -101,13 +102,23 @@ A strong candidate may combine types. Preserve the strongest primary type rather
 
 Use the following sections in this order:
 
-1. Source & Scope — source type actually analyzed, known duration/time range, language if known, evidence limitations, and chosen goal mode.
-2. Top Clip Recommendations — default target is up to 5 primary recommendations, not a quota. Return fewer if fewer strong candidates exist. If the user asks for 10, return up to 10 strong candidates.
-3. Alternative Opportunities — a separate, shorter shortlist of credible lower-priority or goal-specific candidates. Do not repeat the primary list or imply alternatives are equally strong.
-4. Opportunity Coverage — briefly identify which of the seven opportunity types were found and which had no credible candidates. Do not force every type to appear.
-5. NO-CLIP / Low-Value Findings — concise summary with at most 2–3 representative examples when useful. Do not dump a long list of routine moments unless the user explicitly asks for an audit.
-6. Quality & Evidence Notes — note timestamp uncertainty, missing video evidence, context dependency, and any unverified assumptions.
-7. Benchmark Comparison — only when a human-gold set is supplied.
+1. Source & Scope — source type actually analyzed, known duration/time range, language if known, evidence limitations, chosen goal mode, and any uncovered intervals or processing gaps.
+2. Top Clip Recommendations — default target is up to 5 primary recommendations, not a quota. Return fewer if fewer strong candidates exist. If the user asks for 10, return up to 10 strong candidates. This limit applies only to full-package primary recommendations, never to discovery or the alternative inventory.
+3. Alternative Opportunities — list every other distinct, credible opportunity found in the covered source that is not a primary recommendation. Use a compact table or bullets with timestamp, short label, type, approximate score/priority, confidence, and a concise reason. Include weaker-but-plausibly-usable moments as low priority rather than omitting them. Do not repeat primary candidates.
+4. Low-Priority Opportunities — include distinct candidates that have some potential but material weaknesses (for example, context dependency, weak payoff, or uncertain evidence). State the weakness so the user can decide. Do not use this category as a dumping ground for routine filler.
+5. Opportunity Coverage & Inventory Accounting — report source time range covered, uncovered/gapped intervals, chunks processed if applicable, candidate counts detected, duplicate/overlap clusters merged, distinct candidates retained, primary recommendations, alternatives, low-priority candidates, and rejected/NO-CLIP candidates. Counts should reconcile; explain any count that cannot be reconciled. Identify which of the seven opportunity types had credible candidates and which had none.
+6. NO-CLIP / Rejected Findings — summarize rejection reasons and counts by reason where feasible, with only a few representative examples by default. A full rejected-moment list is optional unless the user asks for a complete audit.
+7. Quality & Evidence Notes — note timestamp uncertainty, missing video evidence, context dependency, sampling, and any unverified assumptions.
+8. Benchmark Comparison — only when a human-gold set is supplied.
+
+### Inventory completeness rules
+
+- “All opportunities” means all plausible, distinct, source-supported opportunities found within the source portions actually analyzed; it is not a guarantee that every human reviewer would identify every possible moment.
+- Do not impose a hidden fixed cap on discovery, alternatives, or low-priority candidates. The five-item default applies only to full Creator-Ready Clip Packages in the primary list.
+- Keep alternatives and low-priority items compact to control output length and analysis cost. If the inventory is too long for one response, report how many remain and continue in additional parts rather than silently truncating or implying full coverage.
+- Never claim full-source coverage if any interval was skipped, inaccessible, sampled, or failed. State exact covered ranges and gaps when known.
+- For chunked sources, use original-video timestamps, overlap adjacent chunks enough to catch cross-boundary moments, deduplicate across overlaps, and report any unprocessed intervals.
+- Rejected/NO-CLIP counts are aggregate by default; detailed rejected timestamps are required only for a requested full audit. The distinct credible opportunity inventory must not be hidden inside the NO-CLIP summary.
 
 ### Required fields for each primary recommendation
 
@@ -194,8 +205,8 @@ After scoring:
 2. Apply the candidate quality gate and clipability check.
 3. Cluster duplicates and overlapping versions.
 4. Run the goal-fit and type-concentration checks.
-5. Return a primary shortlist and separate alternatives.
-6. Never force a weak candidate into the primary list to satisfy a count or diversity target.
+5. Return a primary shortlist and the complete compact inventory of other credible opportunities.
+6. Never force a weak candidate into the primary list to satisfy a count or diversity target, and never use the primary-list limit to cap discovery.
 
 ## Quality and cost controls
 
@@ -206,7 +217,7 @@ Follow references/cost-controls.md. In brief:
 - For long media split into chunks, preserve offsets and deduplicate candidates crossing chunk boundaries.
 - Do not assume a link is accessible. Check source availability before spending substantial analysis effort.
 - If the source cannot be accessed, explain the blocker and ask for a supported upload or transcript.
-- Do not promise cost savings or a processing limit without measured runtime data.
+- Do not promise cost savings or a fixed processing limit without measured runtime data.
 
 ## Ranking safeguards
 
