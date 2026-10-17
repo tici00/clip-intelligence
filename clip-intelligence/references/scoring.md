@@ -1,6 +1,6 @@
-# Scoring Framework
+# Scoring Framework — v1.1
 
-Clip Intelligence v0.3 uses structured scores rather than a single generic highlight score.
+Clip Intelligence uses structured comparative scores, not a single generic highlight score and not probabilities of success.
 
 ## Components
 
@@ -11,7 +11,7 @@ Measures whether the moment has a compelling idea, emotion, payoff, tension, spe
 Measures observable visual action, reactions, screen changes, game events, framing opportunities, and ease of editing. Do not infer visuals from transcript alone.
 
 ### Audience/Goal Fit
-Measures fit with the requested audience, platform, niche, and content goal.
+Measures fit with the requested audience, platform, niche, and Creator Goal Mode. If no goal is provided, use Balanced Discovery.
 
 ### Opportunity-Type Fit
 Measures how strongly the candidate matches its selected opportunity type. This prevents generic humor from automatically outranking strong non-comedy opportunities.
@@ -19,15 +19,38 @@ Measures how strongly the candidate matches its selected opportunity type. This 
 ### Editability
 Measures whether the moment can be turned into a coherent short clip without excessive setup or missing context.
 
+### Standalone Clarity (separate diagnostic)
+Rate how well a viewer unfamiliar with the source can understand the candidate:
+- High: situation and payoff are understandable with minimal framing.
+- Medium: a short lead-in, caption, or key visual is needed.
+- Low: substantial unseen context is required.
+
+Standalone Clarity is a diagnostic, not an extra hidden weight. Use it to explain context requirements and compare otherwise similar candidates.
+
 ## Default formula
 
 When video evidence exists:
 
-`Final = 0.40 Content + 0.25 Visual/Edit + 0.15 Audience/Goal + 0.15 Type Fit + 0.05 Editability`
+Final = 0.40 Content + 0.25 Visual/Edit + 0.15 Audience/Goal + 0.15 Type Fit + 0.05 Editability
 
-All components use a 0–100 scale.
+All numeric components use a 0–100 scale.
 
-The formula is intentionally stable in v0.3. The main improvement is **better candidate discovery and type-aware evaluation**, not arbitrary weight changes.
+When only transcript evidence is available, Visual/Edit Potential must be marked evidence-limited. Do not invent a numeric visual score from transcript-only evidence. If a numeric final score is requested, label it transcript-only and not directly comparable to a video-verified score.
+
+The formula is intentionally stable. Do not change weights without a controlled comparison.
+
+## Score transparency
+
+Scores are structured judgments for ranking candidates within the source and goal. They are not calibrated probabilities, virality predictions, or measured engagement forecasts. A score of 90 does not mean a 90% chance of success.
+
+Labels:
+- 90–100: PRIORITY
+- 80–89: STRONG
+- 70–79: TEST
+- 60–69: SECONDARY
+- Below 60: usually NO-CLIP unless a user-specific goal gives a supported reason to review it
+
+These bands are prioritization guidance, not empirically calibrated thresholds unless an evaluation explicitly demonstrates that.
 
 ## Candidate quality gate
 
@@ -43,80 +66,52 @@ A candidate with only a single weak signal should not become a strong clip simpl
 
 ## Anti-false-positive adjustment
 
-After component scoring, perform a separate **clipability check**:
-
+After component scoring, perform a separate clipability check:
 - Is there a clear hook within the first practical seconds?
-- Does the viewer gain information, emotion, progression, curiosity, story, or participation value?
+- Does the viewer gain information, emotion, progression, story, curiosity, or participation value?
 - Can the moment stand alone with limited context?
 - Is there a meaningful payoff or intentional open loop?
-- Is the candidate more than routine gameplay, filler, or an isolated sentence?
+- Is it more than routine gameplay, filler, or an isolated sentence?
 
-If the answer is mostly no, downgrade the candidate or mark NO-CLIP even when raw component scores are moderate.
-
-This check is intentionally separate from confidence: confidence measures evidence quality; clipability measures whether the moment is actually worth clipping.
+If mostly no, downgrade or mark NO-CLIP even when raw component scores are moderate. Confidence is separate: confidence measures evidence quality; clipability measures whether the moment is worth clipping.
 
 ## Type-specific scoring emphasis
-
-The components remain the same, but their interpretation changes by opportunity type:
 
 | Type | Strongest signals |
 |---|---|
 | Comedy | punchline, reaction, payoff, editability, personality |
 | Personality | specificity, creator perspective, relevance, comment potential |
 | Gameplay Progression | meaningful progress, hook, visual evidence, discovery, consequence |
-| Curiosity | hook, unanswered question, specificity, emotion, comments |
+| Curiosity | hook, open loop, specificity, emotion, comments |
 | Story | narrative completeness, escalation, emotion, stakes, context independence |
 | Community | participation, debate, competition, personality, comment potential |
 | Discovery | discovery value, hook, specificity, visual support, usefulness |
 
-A candidate should not receive a high score merely because it is funny if another type better describes its value.
-
-## Confidence
-
-Confidence is separate from the score. High confidence requires strong source evidence and clear boundaries. A high-scoring transcript-only candidate can still have medium or low confidence when visual evidence is unavailable.
-
-## Interpretation
-
-- 90–100: PRIORITY
-- 80–89: STRONG
-- 70–79: TEST
-- 60–69: SECONDARY
-- Below 60: NO-CLIP candidate unless a user-specific goal justifies further review
-
-These labels are prioritization guidance, not predictions of virality.
-
-## Candidate discovery vs. ranking
-
-Do not use the final score as the only mechanism for discovering candidates. First build a broad candidate pool from opportunity signals, then score and rank it.
-
-The candidate pool should include plausible moments for all seven opportunity types when the source provides evidence for them. This is especially important for progression, curiosity, personality, community, and discovery moments that may lack an immediate punchline.
+A candidate should not score highly merely because it is funny if another type better describes its value.
 
 ## Ranking safeguards
 
 After scoring:
-
 1. Apply evidence and context gates.
 2. Apply the candidate quality gate and clipability check.
 3. Cluster duplicates and overlapping versions.
-4. Run the type concentration check.
-5. If multiple candidates are close in score, prefer the candidate that adds distinct opportunity/topic coverage when quality remains strong.
-6. Never force a weak candidate into the ranking solely to satisfy diversity.
+4. Apply the selected goal mode.
+5. Review type concentration without forcing weak diversity.
+6. Prefer stronger evidence, lower context dependency, distinct topic/type coverage, and cleaner boundaries for near-ties.
+7. Never force a weak candidate into the primary shortlist solely to satisfy a requested count.
 
 ## Boundary optimization
 
-Start at the minimum setup needed to understand the moment. End after the punchline, reveal, result, or meaningful progression. For curiosity, ending at the open loop is acceptable when the unanswered question is the hook. For progression, preserve the meaningful unlock/reward/consequence when it is required to understand why the moment matters.
+For each primary recommendation, explain why the start is the earliest useful point and why the end preserves the payoff, result, or intentional open loop without unnecessary tail. Alternate shorter boundaries must describe what is preserved and what is sacrificed.
 
 ## Benchmarking
 
-When a human-gold set is available, report at minimum:
+When a human-gold set is available, report:
+- Gold Match Rate with an explicit matching rule.
+- Top-K Gold Coverage.
+- Opportunity-Type Coverage.
+- Ranking Quality.
+- Boundary and Standalone Clarity quality.
+- NO-CLIP behavior and non-gold candidate quality.
 
-- Gold Match Rate: proportion of gold opportunities represented by at least one output candidate, using an explicitly stated matching rule.
-- Top-K Gold Coverage: gold opportunities represented within the first K ranked outputs.
-- Opportunity-Type Coverage: which gold types were recovered or missed.
-- Ranking Quality: whether recovered gold opportunities appear near the top.
-- NO-CLIP behavior: whether explicit negatives are avoided or correctly marked.
-- Non-gold Quality: whether additional candidates are genuinely clip-worthy rather than merely unusual.
-
-Keep gold recovery and non-gold quality separate. Do not optimize against the gold set during the same evaluation run.
-
-Do not describe these as model performance guarantees. They are benchmark measurements for the supplied evaluation set.
+Keep gold recovery and non-gold quality separate. Do not claim statistical generalization, virality, engagement lift, or production accuracy from curated fixtures.
